@@ -6,6 +6,9 @@ import LinearGradient from 'react-native-linear-gradient'
 interface ThemeInputStyle {
     imgPath?: StyleProp<any>,
     inputStyle?: StyleProp<any>,
+    secured?: boolean, 
+    focus?:()=> void, 
+    blur?: ()=>void, 
     placeHolderText?: StyleProp<any>
 }
 
@@ -13,6 +16,9 @@ const ThemeInput = ({
     inputStyle,
     placeHolderText,
     imgPath,
+    secured,
+    focus,
+    blur,
     ...props
 }: ThemeInputStyle) => {
     return (
@@ -22,8 +28,12 @@ const ThemeInput = ({
             </View>
             <View style={{ flex: 0.85 }}>
                 <TextInput {...props}
+                     onFocus={focus}
+                     onBlur={blur}
+                     secureTextEntry={secured}
                     placeholderTextColor={"#9a9a9a"}
-                    placeholder={placeHolderText} style={styles.input} />
+                    placeholder={placeHolderText} style={[styles.input,inputStyle,{borderBottomColor:(focus?'#99c503':'#9a9a9a'),
+                    borderBottomWidth:focus?1:0.6}]} />
             </View>
         </View>
 
@@ -43,10 +53,8 @@ const styles = StyleSheet.create({
     input: {
         height: 50,
         marginVertical: 6,
-        borderBottomColor: '#9a9a9a',
-        borderBottomWidth: 0.6,
+  
         width: '90%',
-        color: '#fff',
         fontSize: 18,
 
 

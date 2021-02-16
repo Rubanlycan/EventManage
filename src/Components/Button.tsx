@@ -27,7 +27,7 @@ const ThemeButton = ({
         <LinearGradient {...props} style={[styles.buttonColorFixed,btnMainStyle]}
         start={{ x: 0, y: 0 }}
            end={{ x: 1, y: 1 }} locations={[0, 0.8]} 
-         colors={['#1776d3','#1776d3']}>
+         colors={['#99c503', '#49950c','#48960f']}>
               <TouchableOpacity onPress={onBtnPress}>
               <Text {...props} style={[styles.btnText, btnTextStyle]} >{btnText}</Text>
               </TouchableOpacity>
