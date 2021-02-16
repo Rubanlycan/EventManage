@@ -1,41 +1,105 @@
 import React from 'react'
-import { View, Text,Image } from 'react-native'
+import { View, Text, Image, StatusBar, StyleSheet } from 'react-native'
 import { Button } from 'native-base'
 import Heading from '../Components/Heading'
+import ThemeButton from '../Components/Button'
+
+import ThemeInput from '../Components/Input'
 import { StackNavigationProp } from '@react-navigation/stack';
-import LinearGradient from 'react-native-linear-gradient';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { Svg, Path } from 'react-native-svg';
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface loginProps {
     navigation?: StackNavigationProp<any, any>
 }
+
+
 const Login = ({ navigation }: loginProps) => {
+
+    const onLoginCall = () => {
+        navigation?.navigate('Register')
+    }
     return (
 
-        <View style={{ flex: 1, }}>
-            <LinearGradient style={{flex:0.75,justifyContent:'center',alignItems:'center',borderBottomLeftRadius:20,
-            borderBottomStartRadius:20,borderBottomEndRadius:20,
-            borderBottomRightRadius:20}} colors={['#3f8fcc', '#3474b1', '#1d467f']}>
-                <Image source={require('../Images/logo.png')} style={{resizeMode:'contain',height:220}}/>
-               <Heading title={"Welcome"} textStyle={{fontSize:30,color:'#fff',fontWeight:'bold'}}/>
-               <Heading title={"eCommerce React App"} textStyle={{fontSize:20,color:'#fff'}}/>
-               <Heading title={"This is sample app just for demonstration \n contact developer for more information"} 
-               textStyle={{marginTop:20,fontSize:14,color:'#fff'}}/>
-            </LinearGradient>
+        <View style={styles.container}>
+            <StatusBar barStyle={"default"} backgroundColor={'transparent'} />
 
-       <View style={{flex:0.25,alignItems:'center',justifyContent:'center'}}>
-       <LinearGradient style={{flex:0.3,justifyContent:'center',width:'90%',
-       alignItems:'center',borderRadius:8}}
-       start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }} locations={[0, 0.8]} 
-        colors={['#3f8fcc', '#3474b1', '#1d467f']}>
-             <TouchableOpacity>
-             <Heading title={"Login"} textStyle={{fontSize:16,color:'#fff'}}/>
-             </TouchableOpacity>
-            </LinearGradient>
-       </View>
+            <Heading title={"Log in"} rightText={"Close"} />
+            <View style={styles.midContainer}>
+                <Image source={require('../../assets/logo.png')} style={styles.logo} />
+                <ThemeInput imgPath={require('../../assets/Auth/user.png')} placeHolderText={"Email Address*"} />
+                <ThemeInput imgPath={require('../../assets/Auth/password.png')} placeHolderText={"Password*"} />
+
+                <Text onPress={() => navigation?.navigate('ForgotPassword')} style={styles.forgottext}>Forgot password?</Text>
+
+
+            </View>
+
+            <View style={styles.button}>
+                <ThemeButton
+
+                    btnText={'Login'} />
+            </View>
+
+            <Text style={[styles.textStyle, { alignSelf: 'center', marginVertical: 10 }]}>---- or login with. ----</Text>
+
+
+            <View style={[{ flex: 0.2, }, styles.socialMedia]}>
+                <Image source={require('../../assets/Auth/facebook.png')} style={styles.socialMediaInner} />
+                <Image source={require('../../assets/Auth/google.png')} style={styles.socialMediaInner} />
+            </View>
+
+
+
+
+            <View style={[{ flex: 0.05, }, styles.socialMedia]}>
+                <Text style={{ fontSize: 16 }}>Don't have an account yet?</Text>
+                <Text onPress={onLoginCall} style={[styles.textStyle, { color: '#1776d3', }]}> Register</Text>
+            </View>
+
         </View>
     )
 }
 
 export default Login
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    logo: {
+        resizeMode: 'contain',
+        height: 160
+    },
+    button: {
+        flex: 0.1,
+        alignItems: 'center'
+    },
+    midContainer: {
+        flex: 0.58,
+        alignItems: 'center',
+        justifyContent: 'center'
+
+    },
+    socialMedia: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    socialMediaInner: {
+        resizeMode: 'cover',
+        height: 50,
+        width: 50,
+        margin: 5
+
+    },
+    forgottext:{
+         alignSelf: 'flex-end',
+     fontSize: 16, 
+    margin: 10, 
+    },
+    textStyle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    }
+})
